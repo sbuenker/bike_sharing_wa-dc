@@ -11,7 +11,7 @@ weather = pd.read_csv('data/weather_dc_historic.csv', parse_dates=["DATE"])
 # add day, week, month, year features to bike data
 bikes['year'] = bikes['date'].dt.year
 bikes['month'] = bikes['date'].dt.month
-bikes['week'] = bikes['date'].dt.week
+bikes['week'] = bikes['date'].dt.isocalendar().week
 bikes['day'] = bikes['date'].dt.day
 bikes['dayofweek'] = bikes['date'].dt.dayofweek
 bikes['dayofyear'] = bikes['date'].dt.dayofyear
@@ -25,9 +25,10 @@ def add_calendar_features(df):
     df_new['cos_doy'] = np.cos(2*np.pi*df_new['dayofyear']/days_in_year)
     df_new['sin_dow'] = np.sin(2*np.pi*df_new['dayofweek']/7)
     df_new['cos_dow'] = np.cos(2*np.pi*df_new['dayofweek']/7)
-    df_new = pd.concat([df_new, pd.get_dummies(df_new['dayofweek'], 'dow')], axis=1)
-    df_new = pd.concat([df_new, pd.get_dummies(df_new['month'], 'month')], axis=1)
-    df_new = pd.concat([df_new, pd.get_dummies(df_new['day'], 'day')], axis=1)
+    df_new = pd.concat([df_new, pd.get_dummies(df_new['dayofweek'], 'dow', drop_first=True)], axis=1)
+    df_new = pd.concat([df_new, pd.get_dummies(df_new['year'], 'year', drop_first=True)], axis=1)
+    df_new = pd.concat([df_new, pd.get_dummies(df_new['month'], 'month', drop_first=True)], axis=1)
+    df_new = pd.concat([df_new, pd.get_dummies(df_new['day'], 'day', drop_first=True)], axis=1)
     df_new['holiday'] = [1 if d in us_holidays else 0 for d in df_new['date']]
     return df_new
 bikes = add_calendar_features(bikes)
