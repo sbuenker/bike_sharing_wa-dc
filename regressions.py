@@ -10,7 +10,6 @@ from sklearn.metrics import mean_absolute_percentage_error
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 from statsmodels.tsa.stattools import adfuller
-from sys import argv
 
 # read data
 bikes = pd.read_csv('data/finaldata.csv')
@@ -25,8 +24,8 @@ all_features = [*calendar_features, *weather_features]
 
 # define function to train/test model and produce error analysis
 def reg_predict(
-    df,
-    features,
+    df=bikes,
+    features = calendar_features,
     train_year_end = 2018, # training year from 2011 up until year specified here
     test_year = 2019, # test year must be after train_year_end, must be between 2011 and 2019
     model = 'Linear', # choice of 'Linear', 'Polynomial', 'Ridge', 'Poisson'
@@ -37,7 +36,6 @@ def reg_predict(
     n_estimators = 550, # number of estimators for xgboost regression
     max_features = 'sqrt' # maximum number of features for random forest
 ):
-
     ### regression analysis ###
 
     # define train/test years
@@ -103,7 +101,7 @@ def reg_predict(
     # define residuals and subplots
     residuals_test = y_test - y_pred
     fig, ax = plt.subplots(1, 2, figsize=(12,4))
-    fig.suptitle(f'Residual Analysis: Test Period {test_year}', fontsize=12)
+    fig.suptitle(f'Residual Analysis: Test Period {test_year}, {model} regression')
 
     # plot distribution of residuals
     plot_0 = sns.histplot(residuals_test, ax=ax[0], color='Blue')
@@ -128,5 +126,6 @@ def reg_predict(
 	    print('\t%s: %.3f' % (key, value))
     print('----------------------------------')
 
-# baseline model 
-reg_predict(df=bikes, features=calendar_features)
+# print output from baseline model
+# output from other models can be similarly displayed by changing function arguments
+reg_predict()
