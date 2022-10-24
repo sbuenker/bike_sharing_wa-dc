@@ -26,3 +26,5 @@
 5. [Optional] Daily historic weather data for Washington DC is obtained from the [National Oceanic and Atmospheric Administration website](https://www.ncei.noaa.gov/cdo-web/datasets/GHCND/stations/GHCND:USW00013743/detail). The corresponding file is [weather_dc_historic.csv](https://github.com/sbuenker/bike_sharing_wa-dc/blob/main/data/weather_dc_historic.csv).
 
 6. [Optional] Run the Python script [preprocessing_final.py](https://github.com/sbuenker/bike_sharing_wa-dc/blob/main/preprocessing_finaldata.py) to generate the final merged bike and weather data that is used for the analysis. The corresponding file is [finaldata.csv](https://github.com/sbuenker/bike_sharing_wa-dc/blob/main/data/finaldata.csv).
+
+7. The Python script [regressions.py](https://github.com/sbuenker/bike_sharing_wa-dc/blob/main/regressions.py), can be run from the command line. However, to adjust function arguments for the regression test and prediction analysis, this needs to be done directly in the script. 
