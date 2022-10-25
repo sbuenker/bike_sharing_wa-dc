@@ -40,7 +40,6 @@ There are four main findings from the figures above:
 |Polynomial regression (deg=2)|Calendar|Yes|0.025|0.116
 |Ridge regression|Calendar|Yes|0.025|0.116
 |Poisson regression|Calendar|Yes|0.033|0.080
-<br>
 |Linear regression|Calendar + Weather|Yes|0.021|0.114
 |Polynomial regression (deg=2)|Calendar + Weather|Yes|0.012|0.115
 |Ridge regression|Calendar + Weather|Yes|0.012|0.111
