@@ -1,7 +1,10 @@
 # Time Series Demand Prediction - Capital Bikeshare Program
 
 
+### Overview
 For this project, a fictional stakeholder, namely the management board at Capital Bikeshare, has retained an outside data science consulting firm to create a daily demand prediction model for its rental bikes in Washington DC, using a model with calendar and weather features.
+
+To replicate this project, please refer to the Installation document, located [here](https://github.com/sbuenker/bike_sharing_wa-dc/blob/main/installation.md).
 
 ### Exploratory Data Analysis
 ![cyclical-daily-bikes](images/cyclical-daily-bikes.png)
