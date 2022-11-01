@@ -77,7 +77,7 @@ The residuals somewhat resemble normality and are randomly distributed.
 	    10%: -2.571
 
     
-The errors are stationary according to the Augmented Dickey Fuller test. Given the fact that the number of bikes is non-stationary and the residuals are stationary (p-value less than 0.05), this suggests that co-integration is at play and this should not affect the quality of our forecasts for 2019.
+The errors are stationary according to the Augmented Dickey Fuller test. Given the fact that the number of bikes is non-stationary and the residuals are stationary (p-value on the border with 0.05 but less than 0.10), this suggests that co-integration is at play and this should not affect the quality of our forecasts for 2019.
 
 ### Recommendations
 Based on the results, we would recommend using a Random Forest model with weather and calendar features. MAPE for the forecasting/test period in 2019 is 0.056, that is, on average, our forecast is 5.6% different from the actual observations.
