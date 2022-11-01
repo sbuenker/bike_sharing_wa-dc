@@ -25,12 +25,11 @@ all_features = [*calendar_features, *weather_features]
 # define function to train/test model and produce error analysis
 def reg_predict(
     df=bikes,
-    features = calendar_features,
+    features = calendar_features, # calendar_features, weather_features, or all_features
     train_year_end = 2018, # training year from 2011 up until year specified here
     test_year = 2019, # test year must be after train_year_end, must be between 2011 and 2019
-    model = 'Linear', # choice of 'Linear', 'Polynomial', 'Ridge', 'Poisson'
+    model = 'Linear', # choice of 'Linear', 'Polynomial', 'Ridge', 'Poisson', 'Random Forest', 'XGBoost'
     scaling = True, # default scaling (standardization) of x variables
-    logbikes = False, # default y variable is not log transformed
     degree = 2, # quadratic polynomial is default for polynomial and ridge regression
     alphas = [0.01,0.1,1,10,100], # regularization grid for ridge regression
     n_estimators = 550, # number of estimators for xgboost regression
@@ -45,19 +44,14 @@ def reg_predict(
     # define X, y for train/test sample
     X_train = df_train[features]
     X_test = df_test[features]
-    y_train = df_train['numbikes']
-    y_test = df_test['numbikes']
+    y_train = df_train['log_numbikes']
+    y_test = df_test['log_numbikes']
 
     # scaling standardization for features
     if scaling:
         scaler = StandardScaler()
         X_train = scaler.fit_transform(X_train)
         X_test = scaler.transform(X_test)
-    
-    # log choice for number of bikes
-    if logbikes:
-        y_train = np.log(y_train)
-        y_test = np.log(y_test)
     
     # choice for regression models
     if model == 'Linear':
@@ -75,9 +69,9 @@ def reg_predict(
     elif model == 'Poisson':
         regr = PoissonRegressor()
     elif model == 'XGBoost':
-        regr = XGBRegressor(n_estimators=n_estimators)
+        regr = XGBRegressor(n_estimators=n_estimators, random_state=42)
     elif model == 'Random Forest':
-        regr = RandomForestRegressor(n_estimators=n_estimators, max_features=max_features)
+        regr = RandomForestRegressor(n_estimators=n_estimators, max_features=max_features, random_state=42)
     else:
         assert False, f'Unknown model {model}'
     
@@ -98,8 +92,20 @@ def reg_predict(
 
     ### residuals analysis ###
 
-    # define residuals and subplots
+    # define residuals
     residuals_test = y_test - y_pred
+
+    # augmented dickey-fuller test for stationarity of residuals #
+    print('ADF Test for Residual Stationarity')
+    result = adfuller(residuals_test)
+    print('ADF Statistic: %f' % result[0])
+    print('p-value: %f' % result[1])
+    print('Critical Values:')
+    for key, value in result[4].items():
+	    print('\t%s: %.3f' % (key, value))
+    print('----------------------------------')
+
+    # define subplots
     fig, ax = plt.subplots(1, 2, figsize=(12,4))
     fig.suptitle(f'Residual Analysis: Test Period {test_year}, {model} regression')
 
@@ -115,16 +121,6 @@ def reg_predict(
     ax[1].set_xlabel('Predicted', fontsize=10)
     ax[1].set_ylabel('Residual', fontsize=10)
     plt.show()
-
-    # augmented dickey-fuller test for stationarity of residuals #
-    print('ADF Test for Residual Stationarity')
-    result = adfuller(residuals_test)
-    print('ADF Statistic: %f' % result[0])
-    print('p-value: %f' % result[1])
-    print('Critical Values:')
-    for key, value in result[4].items():
-	    print('\t%s: %.3f' % (key, value))
-    print('----------------------------------')
 
 # print output from baseline model
 # output from other models can be similarly displayed by changing function arguments
