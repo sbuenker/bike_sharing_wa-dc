@@ -12,10 +12,10 @@
 ### Overview
 For this project, a fictional stakeholder, namely the management board at Capital Bikeshare, has retained an outside data science consulting firm to create a daily demand prediction model for its rental bikes in Washington DC. The requirements are that the model should be as simple as possible, using features which are publicly available. For this project, we therefore used calendar and weather features. 
 
-To replicate this project, please refer to the Installation document, located [here](https://github.com/sbuenker/bike_sharing_wa-dc/blob/main/installation.md).
+To replicate this project, please refer to the Installation document, located [here](installation.md). For detailed exploratory data analysis and regression analysis, click [here](bike_share_demand_prediction.ipynb). For a Python script to execute the regression analysis from the command line, click [here](regressions.py).
 
 ### Data Sources
-The data on bike trips is obtained from the [Capital Bikeshare website](https://s3.amazonaws.com/capitalbikeshare-data/index.html) from 2011-2019. Approximately 25 million bike trip are aggregated so that we have one observation per day (total number of bike trips/day).
+The data on bike trips is obtained from the [Capital Bikeshare website](https://s3.amazonaws.com/capitalbikeshare-data/index.html) from 2011-2019. Approximately 25 million bike trip are aggregated so that we have one observation per day (total number of bike trips/day). Our final dataset has approximately 3,300 observations.
 
 Daily historic weather data for Washington DC is obtained from the [National Oceanic and Atmospheric Administration](https://www.ncei.noaa.gov/cdo-web/datasets/GHCND/stations/GHCND:USW00013743/detail). We use the weather station located at Washington Reagan Airport (approximately 5km from Downtown Washington DC), due to the continuity in data that spans our time period. 
 
