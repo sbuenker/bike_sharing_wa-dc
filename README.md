@@ -77,12 +77,16 @@ The residuals somewhat resemble normality and are randomly distributed.
 	    10%: -2.571
 
     
-The errors are stationary according to the Augmented Dickey Fuller test. Given the fact that the number of bikes is non-stationary and the residuals are stationary (p-value on the border with 0.05 but less than 0.10), this suggests that co-integration is at play and this should not affect the quality of our forecasts for 2019.
+The residuals are stationary (at the 10% level) according to the Augmented Dickey Fuller test (the null hypothesis is the residuals are non-stationary). Given the fact that the number of bikes is non-stationary and the residuals are stationary, this suggests that co-integration is at play and this should not affect the quality of our forecasts for 2019.
 
 ### Recommendations
 Based on the results, we would recommend using a Random Forest model with weather and calendar features. MAPE for the forecasting/test period in 2019 is 0.056, that is, on average, our forecast is 5.6% different from the actual observations.
 
-Given the average number of bikes/day rented in 2019 is 9311, and assuming variable revenue of $2.00 per bike rental ($1.00 to unlock, average bike trip of 20 mins at $0.05/min), the forecasted variable revenue loss is $380,330/year with the Random Forest model, as opposed to $774,530/year with the Linear Regression model with just calendar features. By just using a better daily demand prediction model, we are able to help the management at Capital Bikeshare save close to **$400,000/year!** 
+To calculate the revenue loss under the baseline linear regression model and under the Random Forest, we assume the following:
+* Variable revenue of $2.00 per bike rental ($1.00 to unlock, average bike trip of 20 mins at $0.05/min).
+* Percentage difference in logs can be approximated as the raw percentage difference. This approximation holds for sufficiently small percentage differences. 
+
+Given the average number of bikes/day rented in 2019 is 9311, the forecasted variable revenue loss is $380,330/year with the Random Forest model, as opposed to $774,530/year with the Linear Regression model with just calendar features. By just using a better daily demand prediction model, we are able to help the management at Capital Bikeshare save close to **$400,000/year!** 
 
 
 
